@@ -38,7 +38,7 @@ namespace bmstats
                 "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                 "~/Content/bootstrap.css",
+                 "~/lib/twitter-bootstrap/css/bootstrap.css",
                  "~/Content/Site.css"));
         }
     }
