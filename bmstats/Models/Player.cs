@@ -22,8 +22,8 @@ namespace bmstats.Models
         public int HeadShots { get; set; }
         public int PlayTime { get; set; }
         public int RoundsPlayedAsT { get; set; }
-        public int RoundsPlayedAsCT{ get; set; }
-        public int LastConnected  { get; set; }
+        public int RoundsPlayedAsCT { get; set; }
+        public int LastConnected { get; set; }
 
         public int KnifeKills { get; set; }
         public int GlockKills { get; set; }
@@ -100,7 +100,11 @@ namespace bmstats.Models
         public int NoScopes { get; set; }
         public int LongestNoScope { get; set; }
 
-
+        public string SteamID64() //Courtesy of user Styles on AlliedMods https://forums.alliedmods.net/showpost.php?p=735452&postcount=115
+        {
+            string[] split = SteamID.Replace("STEAM_", "").Split(':');
+            return (76561197960265728 + (Convert.ToInt64(split[2]) * 2) + Convert.ToInt64(split[1])).ToString();
+        }
     }
 }
 
