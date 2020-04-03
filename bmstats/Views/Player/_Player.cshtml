@@ -1,0 +1,55 @@
+﻿@using bmstats.Models
+@model IEnumerable<Player>
+@{
+    ViewBag.Title = "Players";
+}
+
+<h1>Player</h1>
+
+<table>
+    <tr>
+        <th>Player ID</th>
+        <th>SteamID</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Kills</th>
+        <th>Deaths</th>
+        <th>Assists</th>
+        <th>Suicides</th>
+        <th>TKs</th>
+        <th>Shots Fired</th>
+        <th>Shots Hit</th>
+        <th>Headshots</th>
+        <th>Playtime</th>
+        <th>Bombs Planted</th>
+        <th>Bombs Defused</th>
+        <th>Total Damage</th>
+        <th>Matches Won</th>
+        <th>Matches Lost</th>
+        <th>First Blood</th>
+    </tr>
+    @foreach (Player player in Model)
+    {
+    <tr>
+        <td>@player.ID</td>
+        <td>@player.SteamID</td>
+        <td>@player.Name</td>
+        <td>@player.Score</td>
+        <td>@player.Kills</td>
+        <td>@player.Deaths</td>
+        <td>@player.Assists</td>
+        <td>@player.Suicides</td>
+        <td>@player.Teamkills</td>
+        <td>@player.ShotsFired</td>
+        <td>@player.ShotsHit</td>
+        <td>@player.HeadShots</td>
+        <td>@player.PlayTime</td>
+        <td>@player.BombsPlanted</td>
+        <td>@player.BombsDefused</td>
+        <td>@player.Damage</td>
+        <td>@player.MatchesWon</td>
+        <td>@player.MatchesLost</td>
+        <td>@player.FirstBlood</td>
+    </tr>
+    }
+</table>
