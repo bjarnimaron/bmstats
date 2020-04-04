@@ -17,7 +17,7 @@ namespace bmstats.Controllers
         public ActionResult Index()
         {
             List<Player> players = new List<Player>();
-            string constr = ConfigurationManager.ConnectionStrings["MySQLConnStr"].ConnectionString;
+            string constr = ConfigurationManager.AppSettings["MySQLConnStr"];
             using (MySqlConnection con = new MySqlConnection(constr))
             {
                 string query = "SELECT * FROM `rankme`";
