@@ -8,15 +8,20 @@ using System.Configuration;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SteamWebAPI2.Interfaces;
+using SteamWebAPI2.Utilities;
+using SteamWebAPI2.Models;
 using bmstats.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace bmstats.Controllers
 {
-    public class PlayerController : Controller
+    public class PlayerRowController : Controller
     {
         public ActionResult Index()
         {
-            List<Player> players = new List<Player>();
+            List<PlayerRow> PlayerRows = new List<PlayerRow>();
             string constr = ConfigurationManager.AppSettings["MySQLConnStr"];
             using (MySqlConnection con = new MySqlConnection(constr))
             {
@@ -29,7 +34,7 @@ namespace bmstats.Controllers
                     {
                         while (rdr.Read())
                         {
-                            players.Add(new Player
+                            PlayerRows.Add(new PlayerRow
                             {
                                 ID = rdr["id"].ToString(),
                                 SteamID = rdr["steam"].ToString(),
@@ -122,7 +127,8 @@ namespace bmstats.Controllers
                                 FirstBlood = Convert.ToInt32(rdr["first_blood"]),
 
                                 NoScopes = Convert.ToInt32(rdr["no_scope"]),
-                                LongestNoScope = Convert.ToInt32(rdr["no_scope_dis"])
+                                LongestNoScope = Convert.ToInt32(rdr["no_scope_dis"]),
+                                steamid = GetSteamUser((rdr["steam"]).ToString())
                             });
                         }
                     }
@@ -130,7 +136,16 @@ namespace bmstats.Controllers
                 }
             }
 
-            return View(players);
+            return View(PlayerRows);
+        }
+
+        public SteamId GetSteamUser(string SteamID) //Courtesy of user Styles on AlliedMods https://forums.alliedmods.net/showpost.php?p=735452&postcount=115
+        {
+            string[] split = SteamID.Replace("STEAM_", "").Split(':');
+
+            var test = (76561197960265728 + (Convert.ToInt64(split[2]) * 2) + Convert.ToInt64(split[1]));
+            SteamId steamid = new SteamId(Convert.ToUInt64(test));
+            return steamid;
         }
     }
 }

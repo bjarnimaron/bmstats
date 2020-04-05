@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SteamWebAPI2.Models;
+using SteamWebAPI2.Interfaces;
 
 namespace bmstats.Models
 {
-    public class Player
+    public class PlayerRow
     {
         public string ID { get; set; }
         public string SteamID { get; set; }
@@ -19,10 +21,34 @@ namespace bmstats.Models
         public int Teamkills { get; set; }
         public int ShotsFired { get; set; }
         public int ShotsHit { get; set; }
+        public Decimal GetAccuracy()
+        {
+            Decimal result = (((Decimal)ShotsHit / (Decimal)ShotsFired) * 100);
+            return System.Math.Ceiling((result * 100) / 100);
+        }
+
         public int HeadShots { get; set; }
+        public Decimal GetHeadPercentage()
+        {
+
+            Decimal result = (((Decimal)HeadShots / (Decimal)Kills) * 100);
+            return System.Math.Ceiling((result * 100) / 100);
+        }
+
         public int PlayTime { get; set; }
+        public string GetPlayTime()
+        {
+            TimeSpan time = TimeSpan.FromSeconds(PlayTime);
+            string str = time.ToString(@"hh\:mm\:ss\:fff");
+            return str;
+        }
         public int RoundsPlayedAsT { get; set; }
         public int RoundsPlayedAsCT { get; set; }
+
+        public double GetADR()
+        {
+            return (Damage / (RoundsPlayedAsCT + RoundsPlayedAsT));
+        }
         public int LastConnected { get; set; }
 
         public int KnifeKills { get; set; }
@@ -100,11 +126,8 @@ namespace bmstats.Models
         public int NoScopes { get; set; }
         public int LongestNoScope { get; set; }
 
-        public string SteamID64() //Courtesy of user Styles on AlliedMods https://forums.alliedmods.net/showpost.php?p=735452&postcount=115
-        {
-            string[] split = SteamID.Replace("STEAM_", "").Split(':');
-            return (76561197960265728 + (Convert.ToInt64(split[2]) * 2) + Convert.ToInt64(split[1])).ToString();
-        }
+        public SteamId steamid { get; set; }
+
     }
 }
 
