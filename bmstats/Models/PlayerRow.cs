@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Configuration;
 using SteamWebAPI2.Models;
-using SteamWebAPI2.Interfaces;
 
 namespace bmstats.Models
 {
     public class PlayerRow
     {
-        public string ID { get; set; }
-        public string SteamID { get; set; }
+        public string TableID { get; set; }
+        public string LegacySteamID { get; set; }
+        public string Steam64 { get; set; }
         public string Name { get; set; }
         public string IP { get; set; }
         public int Score { get; set; }
@@ -39,8 +44,10 @@ namespace bmstats.Models
         public string GetPlayTime()
         {
             TimeSpan time = TimeSpan.FromSeconds(PlayTime);
-            string str = time.ToString(@"hh\:mm\:ss\:fff");
-            return str;
+
+            return string.Format("{0}hr {1}mn",
+                     (int)time.TotalHours,
+                     time.Minutes);
         }
         public int RoundsPlayedAsT { get; set; }
         public int RoundsPlayedAsCT { get; set; }
@@ -125,92 +132,90 @@ namespace bmstats.Models
 
         public int NoScopes { get; set; }
         public int LongestNoScope { get; set; }
-
-        public SteamId steamid { get; set; }
-
+        public string AvatarUrl { get; set; }
     }
 }
 
-    //`id`,
-    //`steam`,
-    //`name`,
-    //`lastip`,
-    //`score`,
-    //`kills`,
-    //`deaths`,
-    //`assists`,
-    //`suicides`,
-    //`tk`,
-    //`shots`,
-    //`hits`,
-    //`headshots`,
-    //`connected`,
-    //`rounds_tr`,
-    //`rounds_ct`,
-    //`lastconnect`,
-    //`knife`,
-    //`glock`,
-    //`hkp2000`,
-    //`usp_silencer`,
-    //`p250`,
-    //`deagle`,
-    //`elite`,
-    //`fiveseven`,
-    //`tec9`,
-    //`cz75a`,
-    //`revolver`,
-    //`nova`,
-    //`xm1014`,
-    //`mag7`,
-    //`sawedoff`,
-    //`bizon`,
-    //`mac10`,
-    //`mp9`,
-    //`mp7`,
-    //`ump45`,
-    //`p90`,
-    //`galilar`,
-    //`ak47`,
-    //`scar20`,
-    //`famas`,
-    //`m4a1`,
-    //`m4a1_silencer`,
-    //`aug`,
-    //`ssg08`,
-    //`sg556`,
-    //`awp`,
-    //`g3sg1`,
-    //`m249`,
-    //`negev`,
-    //`hegrenade`,
-    //`flashbang`,
-    //`smokegrenade`,
-    //`inferno`,
-    //`decoy`,
-    //`taser`,
-    //`mp5sd`,
-    //`breachcharge`,
-    //`head`,
-    //`chest`,
-    //`stomach`,
-    //`left_arm`,
-    //`right_arm`,
-    //`left_leg`,
-    //`right_leg`,
-    //`c4_planted`,
-    //`c4_exploded`,
-    //`c4_defused`,
-    //`ct_win`,
-    //`tr_win`,
-    //`hostages_rescued`,
-    //`vip_killed`,
-    //`vip_escaped`,
-    //`vip_played`,
-    //`mvp`,
-    //`damage`,
-    //`match_win`,
-    //`match_draw`,
-    //`match_lose`,
-    //`first_blood`,
-    //`no_scope`,
-    //`no_scope_dis`
+//`id`,
+//`steam`,
+//`name`,
+//`lastip`,
+//`score`,
+//`kills`,
+//`deaths`,
+//`assists`,
+//`suicides`,
+//`tk`,
+//`shots`,
+//`hits`,
+//`headshots`,
+//`connected`,
+//`rounds_tr`,
+//`rounds_ct`,
+//`lastconnect`,
+//`knife`,
+//`glock`,
+//`hkp2000`,
+//`usp_silencer`,
+//`p250`,
+//`deagle`,
+//`elite`,
+//`fiveseven`,
+//`tec9`,
+//`cz75a`,
+//`revolver`,
+//`nova`,
+//`xm1014`,
+//`mag7`,
+//`sawedoff`,
+//`bizon`,
+//`mac10`,
+//`mp9`,
+//`mp7`,
+//`ump45`,
+//`p90`,
+//`galilar`,
+//`ak47`,
+//`scar20`,
+//`famas`,
+//`m4a1`,
+//`m4a1_silencer`,
+//`aug`,
+//`ssg08`,
+//`sg556`,
+//`awp`,
+//`g3sg1`,
+//`m249`,
+//`negev`,
+//`hegrenade`,
+//`flashbang`,
+//`smokegrenade`,
+//`inferno`,
+//`decoy`,
+//`taser`,
+//`mp5sd`,
+//`breachcharge`,
+//`head`,
+//`chest`,
+//`stomach`,
+//`left_arm`,
+//`right_arm`,
+//`left_leg`,
+//`right_leg`,
+//`c4_planted`,
+//`c4_exploded`,
+//`c4_defused`,
+//`ct_win`,
+//`tr_win`,
+//`hostages_rescued`,
+//`vip_killed`,
+//`vip_escaped`,
+//`vip_played`,
+//`mvp`,
+//`damage`,
+//`match_win`,
+//`match_draw`,
+//`match_lose`,
+//`first_blood`,
+//`no_scope`,
+//`no_scope_dis`

@@ -1,0 +1,89 @@
+﻿@using bmstats.Models
+@using bmstats.Controllers
+@model IEnumerable<PlayerRow>
+@{
+    ViewBag.Title = "Scoreboard";
+}
+
+<div class="table">
+    <table id="scoreboard" class="table table-bordered table-hover table-striped table-dark table-sm" data-toggle="table" data-sortable="true" data-sort-name="score" data-sort-order="desc" data-fixed-columns="true" data-fixed-number="1">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col" data-sortable="true">Player</th>
+                <th scope="col" data-sortable="true" data-field="score">Score</th>
+                <th scope="col" data-sortable="true">Kills</th>
+                <th scope="col" data-sortable="true">Deaths</th>
+                <th scope="col" data-sortable="true">Assists</th>
+                <th scope="col" data-sortable="true">ADR</th>
+                <th scope="col" data-sortable="true">HS %</th>
+                <th scope="col" data-sortable="true">Playtime</th>
+                <th scope="col" data-sortable="true">Suicides</th>
+                <th scope="col" data-sortable="true">TKs</th>
+                <th scope="col" data-sortable="true">Shots Fired</th>
+                <th scope="col" data-sortable="true">Shots Hit</th>
+                <th scope="col" data-sortable="true">Accuracy %</th>
+                <th scope="col" data-sortable="true">Headshots</th>
+                <th scope="col" data-sortable="true">Bombs Planted</th>
+                <th scope="col" data-sortable="true">Bombs Defused</th>
+                <th scope="col" data-sortable="true">Total Damage</th>
+                <th scope="col" data-sortable="true">Matches Won</th>
+                <th scope="col" data-sortable="true">Matches Lost</th>
+                <th scope="col" data-sortable="true">First Blood</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PlayerRow playerrow in Model)
+            {
+                <tr>
+                    <th scope="row" class="avatar" id="@playerrow.Steam64"><img src="@playerrow.AvatarUrl" /></th>
+                    <td><a href="http://steamcommunity.com/profiles/@playerrow.Steam64">@playerrow.Name</a></td>
+                    <td>@playerrow.Score</td>
+                    <td>@playerrow.Kills</td>
+                    <td>@playerrow.Deaths</td>
+                    <td>@playerrow.Assists</td>
+                    <td>@playerrow.GetADR()</td>
+                    <td>@playerrow.GetHeadPercentage()%</td>
+                    <td>@playerrow.GetPlayTime()</td>
+                    <td>@playerrow.Suicides</td>
+                    <td>@playerrow.Teamkills</td>
+                    <td>@playerrow.ShotsFired</td>
+                    <td>@playerrow.ShotsHit</td>
+                    <td>@playerrow.GetAccuracy()%</td>
+                    <td>@playerrow.HeadShots</td>
+                    <td>@playerrow.BombsPlanted</td>
+                    <td>@playerrow.BombsDefused</td>
+                    <td>@playerrow.Damage</td>
+                    <td>@playerrow.MatchesWon</td>
+                    <td>@playerrow.MatchesLost</td>
+                    <td>@playerrow.FirstBlood</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Player</th>
+                <th scope="col">Score</th>
+                <th scope="col">Kills</th>
+                <th scope="col">Deaths</th>
+                <th scope="col">Assists</th>
+                <th scope="col">ADR</th>
+                <th scope="col">HS %</th>
+                <th scope="col">Playtime</th>
+                <th scope="col">Suicides</th>
+                <th scope="col">TKs</th>
+                <th scope="col">Shots Fired</th>
+                <th scope="col">Shots Hit</th>
+                <th scope="col">Accuracy %</th>
+                <th scope="col">Headshots</th>
+                <th scope="col">Bombs Planted</th>
+                <th scope="col">Bombs Defused</th>
+                <th scope="col">Total Damage</th>
+                <th scope="col">Matches Won</th>
+                <th scope="col">Matches Lost</th>
+                <th scope="col">First Blood</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

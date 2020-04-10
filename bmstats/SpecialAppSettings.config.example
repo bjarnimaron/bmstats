@@ -1,0 +1,5 @@
+﻿<appSettings>
+  <add key="SteamAPIKey" value="STEAM_API_KEY" />
+
+  <add key="MySQLConnStr" value="server=MYSQL_SERVER;user id=USERID;password=PASSWORD;port=PORTNUMBER;database=rankme;persistsecurityinfo=True" />
+</appSettings>

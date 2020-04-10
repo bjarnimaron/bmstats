@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("bmstats")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Scoreboard for the RankMe Kento CSGO plugin.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("bmstats")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("30bcff0d-b3fa-4779-bab0-b67a402a9d67")]
+[assembly: Guid("ee794d63-05d5-4a08-bc6b-7ff9d4e24abc")]
 
 // Version information for an assembly consists of the following four values:
 //
